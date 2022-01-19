@@ -1,7 +1,7 @@
 from transformers import T5Tokenizer
 from torch.utils.data import Dataset
 import pandas as pd
-
+import json
 
 class wikisql(Dataset):
     def __init__(self, type_path: str,
@@ -39,7 +39,8 @@ class wikisql(Dataset):
             target_ = self.clean_text(example_batch['question'])
         else:
             # text to sql
-            input_ = "translate English to SQL: " + self.clean_text(example_batch['question']) + self.clean_text(example_batch["header"])
+            headers = json.loads(example_batch["header"])
+            input_ = self.clean_text(example_batch['question']) + " " + " ".join(headers)
             print(input_)
             sql = example_batch["sql"]
             human_readable = eval(sql)["human_readable"]
