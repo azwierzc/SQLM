@@ -17,9 +17,9 @@ from transformers import (
 from typing import Optional
 
 class T5FineTuner(pl.LightningModule):
-    def __init__(self, hparams, sql2txt: bool = True) -> None:
+    def __init__(self, hparams, sql2txt: bool = False) -> None:
         super(T5FineTuner, self).__init__()
-        self.hparams.update(vars(hparams))
+        self.hparams = hparams
         self.model = T5ForConditionalGeneration.from_pretrained(hparams.model_name)
         self.tokenizer = T5Tokenizer.from_pretrained(hparams.tokenizer_name)
         self.rouge_metric = load_metric('rouge', experiment_id=Optional["00001"])
