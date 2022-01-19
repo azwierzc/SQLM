@@ -3,6 +3,7 @@ from torch.utils.data import Dataset
 import pandas as pd
 import json
 
+
 class wikisql(Dataset):
     def __init__(self, type_path: str,
                  input_length: int,
@@ -13,7 +14,6 @@ class wikisql(Dataset):
 
         if type_path == "train":
             self.dataset = pd.read_csv("data/train_df_pl.csv")
-            self.dataset = self.dataset.loc[0:50, :]
         elif type_path == "validation":
             self.dataset = pd.read_csv("data/dev_df_pl.csv")
         elif type_path == "test":
@@ -35,12 +35,11 @@ class wikisql(Dataset):
     def convert_to_features(self, example_batch):
         if self.sql2txt:
             # sql to text
-            input_ = "translate SQL to English: " + self.clean_text(example_batch['sql']['human_readable'])
+            input_ = self.clean_text(example_batch['sql']['human_readable'])
             target_ = self.clean_text(example_batch['question'])
         else:
             # text to sql
             input_ = self.clean_text(example_batch['question_header'])
-            print(input_)
             sql = example_batch["sql"]
             human_readable = eval(sql)["human_readable"]
             target_ = self.clean_text(human_readable)
