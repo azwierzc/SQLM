@@ -22,7 +22,7 @@ class T5FineTuner(pl.LightningModule):
         self.hparams = hparams
         self.model = T5ForConditionalGeneration.from_pretrained(hparams.model_name)
         self.tokenizer = T5Tokenizer.from_pretrained(hparams.tokenizer_name)
-        self.rouge_metric = load_metric('rouge', experiment_id=Optional["00001"])
+        self.rouge_metric = load_metric('rouge')
         self.sql2txt = sql2txt
         
         if self.hparams.freeze_embeds:
