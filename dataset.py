@@ -39,8 +39,7 @@ class wikisql(Dataset):
             target_ = self.clean_text(example_batch['question'])
         else:
             # text to sql
-            headers = example_batch["header"]
-            input_ = self.clean_text(example_batch['question']) + " " + " ".join(headers)
+            input_ = self.clean_text(example_batch['question_header'])
             print(input_)
             sql = example_batch["sql"]
             human_readable = eval(sql)["human_readable"]
