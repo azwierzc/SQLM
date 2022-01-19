@@ -13,7 +13,7 @@ class wikisql(Dataset):
 
         if type_path == "train":
             self.dataset = pd.read_csv("data/train_df_pl.csv")
-            self.dataset = self.dataset.loc[0:5000, :]
+            self.dataset = self.dataset.loc[0:50, :]
         elif type_path == "validation":
             self.dataset = pd.read_csv("data/dev_df_pl.csv")
         elif type_path == "test":
@@ -39,7 +39,8 @@ class wikisql(Dataset):
             target_ = self.clean_text(example_batch['question'])
         else:
             # text to sql
-            input_ = "translate English to SQL: " + self.clean_text(example_batch['question'])
+            input_ = "translate English to SQL: " + self.clean_text(example_batch['question']) + self.clean_text(example_batch["header"])
+            print(input_)
             sql = example_batch["sql"]
             human_readable = eval(sql)["human_readable"]
             target_ = self.clean_text(human_readable)
