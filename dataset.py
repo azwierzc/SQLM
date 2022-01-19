@@ -12,12 +12,12 @@ class wikisql(Dataset):
                  sql2txt: bool = False) -> None:
 
         if type_path == "train":
-            self.dataset = pd.read_csv("train_df_pl.csv")
+            self.dataset = pd.read_csv("data/train_df_pl.csv")
             self.dataset = self.dataset.loc[0:5000, :]
         elif type_path == "validation":
-            self.dataset = pd.read_csv("dev_df_pl.csv")
+            self.dataset = pd.read_csv("data/dev_df_pl.csv")
         elif type_path == "test":
-            self.dataset = pd.read_csv("test_df_pl.csv")
+            self.dataset = pd.read_csv("data/test_df_pl.csv")
 
         """if num_samples:
             self.dataset = self.dataset.select(list(range(0, num_samples)))"""
