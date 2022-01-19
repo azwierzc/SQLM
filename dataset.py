@@ -39,7 +39,7 @@ class wikisql(Dataset):
             target_ = self.clean_text(example_batch['question'])
         else:
             # text to sql
-            headers = json.loads(example_batch["header"])
+            headers = example_batch["header"]
             input_ = self.clean_text(example_batch['question']) + " " + " ".join(headers)
             print(input_)
             sql = example_batch["sql"]
